@@ -1,2 +1,728 @@
 # Zeny
 Official website for $ZENY — a community-driven meme project focused on vibes, creativity, and fun. No token yet. Community first.
+[zeny-memecoin-site.html](https://github.com/user-attachments/files/24332673/zeny-memecoin-site.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$ZENY - The Vision Memecoin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+            letter-spacing: 3px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #00f5ff;
+            text-shadow: 0 0 20px #00f5ff;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 7rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff, #00ff88, #ffaa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px #00f5ff); }
+            to { filter: drop-shadow(0 0 40px #ff00ff); }
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            padding: 1.5rem 4rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.4);
+            margin: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 60px rgba(255, 0, 255, 0.6);
+        }
+
+        .section {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 4rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 245, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #00f5ff;
+            box-shadow: 0 20px 60px rgba(0, 245, 255, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #00f5ff;
+        }
+
+        .feature-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .tokenomics {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border-radius: 30px;
+            padding: 4rem;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .token-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .roadmap {
+            position: relative;
+        }
+
+        .roadmap-item {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .roadmap-phase {
+            min-width: 150px;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .roadmap-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .roadmap-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #00f5ff;
+        }
+
+        .roadmap-description {
+            font-size: 1.1rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .contract-address {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            word-break: break-all;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .roadmap-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .coin-icon {
+            width: 250px;
+            height: 250px;
+            margin: 2rem auto;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(0, 245, 255, 0.6));
+        }
+
+        .coin-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .countdown-section {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border-radius: 30px;
+            padding: 4rem;
+            margin: 4rem auto;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .countdown-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+        }
+
+        .countdown-unit {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem 3rem;
+            min-width: 120px;
+            transition: all 0.3s;
+        }
+
+        .countdown-unit:hover {
+            transform: translateY(-5px);
+            border-color: #00f5ff;
+            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.4);
+        }
+
+        .countdown-value {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-label {
+            font-size: 1.2rem;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .banner-image {
+            width: 100%;
+            max-width: 1000px;
+            margin: 3rem auto;
+            border-radius: 20px;
+            border: 3px solid rgba(0, 245, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 245, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div class="content">
+        <header>
+            <div class="logo">$ZENY</div>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#features">Features</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <a href="#roadmap">Roadmap</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="coin-icon">
+                <img src="https://i.imgur.com/placeholder.png" alt="ZENY Logo" id="logo-img">
+            </div>
+            <h1 class="hero-title">$ZENY</h1>
+            <p class="hero-subtitle">ADAPT. EVOLVE.</p>
+            
+            <div class="countdown-section">
+                <h2 class="countdown-title">📅 Launch Date Announcement 📅</h2>
+                <div style="font-size: 2rem; color: #00f5ff; margin: 2rem 0; font-weight: 700;">
+                    Coming Tomorrow Evening! ⏰
+                </div>
+                <p style="font-size: 1.3rem; color: #ccc; max-width: 600px; margin: 0 auto;">
+                    The exact launch time will be revealed tomorrow evening. Stay tuned to our social channels for the big announcement!
+                </p>
+            </div>
+
+            <div>
+                <button class="cta-button" onclick="window.open('https://x.com/ZenyCoin', '_blank')">Follow on X</button>
+                <button class="cta-button" onclick="window.open('https://t.me/+C8wXCjLpQitkOTIy', '_blank')">Join Telegram</button>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <h2 class="section-title">About ZENY</h2>
+            <img src="https://i.imgur.com/placeholder-banner.png" alt="ZENY Banner" class="banner-image" id="banner-img">
+            <div style="text-align: center; max-width: 800px; margin: 2rem auto; font-size: 1.3rem; line-height: 1.8; color: #ccc;">
+                ZENY is not just another memecoin. It's a movement. A vision. A community-driven revolution built on Solana that combines the power of memes with cutting-edge blockchain technology. Like a chameleon adapting to its environment, ZENY evolves with the crypto landscape. Join us as we redefine what it means to be part of the crypto future.
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <h2 class="section-title">Why ZENY?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Built on Solana</h3>
+                    <p class="feature-description">Lightning-fast transactions with near-zero fees. Experience the speed and efficiency of the Solana blockchain.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3 class="feature-title">Community Driven</h3>
+                    <p class="feature-description">Built by the people, for the people. Every decision is made together, every milestone celebrated as one.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🦎</div>
+                    <h3 class="feature-title">Adapt & Evolve</h3>
+                    <p class="feature-description">Like a chameleon, ZENY adapts to the ever-changing crypto landscape, always staying ahead of the curve.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">Global Vision</h3>
+                    <p class="feature-description">ZENY transcends borders, bringing together a worldwide community of believers and visionaries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Meme Power</h3>
+                    <p class="feature-description">Harnessing the viral power of memes with real utility and a passionate community backing it.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Transparent</h3>
+                    <p class="feature-description">Full transparency in all operations. Contract will be verified, liquidity locked, and community-focused.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tokenomics" class="section">
+            <h2 class="section-title">Tokenomics</h2>
+            <div class="tokenomics">
+                <div style="text-align: center; font-size: 1.5rem; color: #ccc; line-height: 1.8;">
+                    <p style="margin-bottom: 2rem;">Full tokenomics details will be revealed at launch!</p>
+                    <p>Built on the <span style="color: #00f5ff; font-weight: 700;">Solana</span> blockchain for lightning-fast transactions and minimal fees.</p>
+                </div>
+                <div class="token-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">SOL</div>
+                        <div class="stat-label">Blockchain</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">🚀</div>
+                        <div class="stat-label">Fair Launch</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">💎</div>
+                        <div class="stat-label">Community First</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">🔒</div>
+                        <div class="stat-label">LP Locked</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="section roadmap">
+            <h2 class="section-title">Roadmap</h2>
+            <div class="roadmap-item">
+                <div class="roadmap-phase">Phase 1</div>
+                <div class="roadmap-content">
+                    <h3 class="roadmap-title">Launch & Foundation</h3>
+                    <p class="roadmap-description">Token launch, website deployment, social media presence establishment, initial community building, liquidity pool creation, and contract verification.</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-phase">Phase 2</div>
+                <div class="roadmap-content">
+                    <h3 class="roadmap-title">Growth & Exposure</h3>
+                    <p class="roadmap-description">Major exchange listings, influencer partnerships, viral marketing campaigns, community events, AMAs, and reaching 10,000+ holders.</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-phase">Phase 3</div>
+                <div class="roadmap-content">
+                    <h3 class="roadmap-title">Expansion & Utility</h3>
+                    <p class="roadmap-description">Launch of ZENY NFT collection, staking platform, merchandise store, partnerships with major brands, and community governance implementation.</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-phase">Phase 4</div>
+                <div class="roadmap-content">
+                    <h3 class="roadmap-title">Ecosystem & Beyond</h3>
+                    <p class="roadmap-description">ZENY mobile app, cross-chain integration, DeFi protocols, charity initiatives, and establishing ZENY as a household name in crypto.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <h2 style="font-size: 3rem; margin-bottom: 2rem; background: linear-gradient(135deg, #00f5ff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Join The Vision</h2>
+            
+            <div class="social-links">
+                <a href="https://x.com/ZenyCoin" target="_blank" class="social-link" title="Follow on X">𝕏</a>
+                <a href="https://t.me/+C8wXCjLpQitkOTIy" target="_blank" class="social-link" title="Join Telegram">📱</a>
+            </div>
+
+            <p style="margin-top: 2rem; color: #666;">© 2024 ZENY. Built on Solana. This is a memecoin with no intrinsic value or expectation of financial return.</p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = this.randomColor();
+            }
+
+            randomColor() {
+                const colors = ['#00f5ff', '#ff00ff', '#00ff88', '#ffaa00'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            particles.forEach((a, i) => {
+                particles.slice(i + 1).forEach(b => {
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = a.color;
+                        ctx.lineWidth = 0.2;
+                        ctx.globalAlpha = 1 - distance / 100;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                        ctx.globalAlpha = 1;
+                    }
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        init();
+        animate();
+
+        // Load actual images
+        const logoImg = document.getElementById('logo-img');
+        const bannerImg = document.getElementById('banner-img');
+        
+        // Using direct Imgur image URLs
+        logoImg.src = 'https://i.imgur.com/RhT0WXz.jpeg';
+        bannerImg.src = 'https://i.imgur.com/TPmBqSe.jpeg';
+        
+        // Fallback if images don't load
+        logoImg.onerror = function() {
+            console.log('Logo failed to load, trying alternate formats');
+            this.src = 'https://i.imgur.com/RhT0WXz.jpg';
+        };
+        bannerImg.onerror = function() {
+            console.log('Banner failed to load, trying alternate formats');
+            this.src = 'https://i.imgur.com/TPmBqSe.jpg';
+        };
+        
+        // Smooth scroll
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
